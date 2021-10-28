@@ -12,5 +12,4 @@ date_start = '21/10/25 11:00:00.000'
 date_finish = '21/10/25 12:00:00.000'
 env = 'sql_db_prod'
 report = IngestionReport(date_start, date_finish, env)
-report.detail_report()
-report.summary_report()
+report.ingestion_report()

@@ -1,5 +1,5 @@
 import pandas as pd
-from folder_file_name import folder_Details, folder_Summary, file_Summary, file_Details
+from folder_file_name import folder_IngestionReport, file_IngestionReport
 from join_files import JoinFail
 from init_logger import log
 
@@ -13,13 +13,14 @@ class IngestionReport:
         self.finish = finish
         self.env = env
 
-    def detail_report(self):
-        self.detailReport = JoinFail(self.start, self.finish, self.env)
-        self.e2eIngestionDetails = self.detailReport.DetailReport()
-        folder_path = folder_Details(self.e2eIngestionDetails)
-        file_name = file_Details(self.e2eIngestionDetails)
+    def ingestion_report(self):
+        ingestion_Report = JoinFail(self.start, self.finish, self.env)
+        e2eIngestionReportDetails = ingestion_Report.DetailReport()
+        e2eIngestionReportSummary = ingestion_Report.SummaryReport()
+        folder_path = folder_IngestionReport(e2eIngestionReportDetails)
+        file_name = file_IngestionReport(e2eIngestionReportDetails)
         with pd.ExcelWriter(folder_path + '\\' + file_name) as write:
-            self.e2eIngestionDetails[
+            e2eIngestionReportDetails[
                 ['INGESTION_ID', 'TYPE_OF_MESSAGE', 'CRNT_STATUS', 'INGESTION_SERVICE_MESSAGE_STARTED',
                  'INGESTION_SERVICE_MESSAGE_FINISHED', 'INGESTION SERVICE TOTAL TIME',
                  'MESSAGE_BROKER_STARTED', 'MESSAGE_BROKER_FINISHED', 'MESSAGE BROKER TOTAL TIME',
@@ -28,7 +29,7 @@ class IngestionReport:
                  'COMPUTATION TOTAL TIME',
                  'totalSourcingObjectCount', 'TimeDiff']].to_excel(
                 write, index=False, sheet_name='DetailReport')
-            self.e2eIngestionDetails[
+            e2eIngestionReportDetails[
                 ['INGESTION_ID', 'totalCpuTimeMs',
                  'averageCpuTimeMs',
                  'performanceStatus',
@@ -39,12 +40,5 @@ class IngestionReport:
                  'totalProcessedObjectCount'
                  ]].to_excel(
                 write, index=False, sheet_name='DetailReportComputation')
-            logger.info('EXCEL FILE DETAILS REPORT path -> ' + folder_path + '\\' + file_name)
-
-    def summary_report(self):
-        e2eIngestionSummary = self.detailReport.SummaryReport()
-        folder_path = folder_Summary(self.e2eIngestionDetails)
-        file_name = file_Summary(self.e2eIngestionDetails)
-        with pd.ExcelWriter(folder_path + '\\' + file_name) as write:
-            e2eIngestionSummary.to_excel(write, index=False, sheet_name='SummaryReport')
-        logger.info('EXCEL FILE SUMMARY REPORT path -> ' + folder_path + '\\' + file_name)
+            e2eIngestionReportSummary.to_excel(write, index=False, sheet_name='SummaryReport')
+            logger.info('INGESTION REPORT CREATED SUCCESSFULLY ! .. path -> ' + folder_path + '\\' + file_name)
