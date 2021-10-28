@@ -3,3 +3,4 @@ __pycache__/
 Report/
 Test/
 resources/ingestion_id.json
+ExcelMacros/macros_format.xlsm

@@ -9,8 +9,8 @@ Date: Oct 26th, 2021
 # env "sql_db_uat or sql_db_sit"
 
 
-date_start = '21/10/25 11:00:00.000'
-date_finish = '21/10/25 12:00:00.000'
+date_start = '21/10/28 00:00:00.000'
+date_finish = '21/10/28 01:00:00.000'
 env = 'sql_db_prod'
 report = IngestionReport(date_start, date_finish, env)
 report.ingestion_report()

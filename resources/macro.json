@@ -1,0 +1,12 @@
+{
+
+     "excel_macros": [
+      {
+
+         "detail_report": "macros_format.xlsm!ReportDetailFormat",
+         "summary_report": "macros_format.xlsm!ReportSummaryFormat"
+      }
+   ]
+
+}
+

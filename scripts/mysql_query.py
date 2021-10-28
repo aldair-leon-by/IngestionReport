@@ -107,7 +107,7 @@ def mysql_query_computation_time(env):
             "AND performance_metrics != 'NULL' " \
             "group by ingestion_id,performance_metrics,status;" % format_strings
     try:
-        logger.info('Executing query... MySQL stack DB')
+        logger.info('Executing query PERFORMANCE METRICS... MySQL stack DB')
         computation_performance = pd.read_sql(query, con=cnx, params=tuple(ingestion_id))
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:

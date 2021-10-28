@@ -2,6 +2,7 @@ import pandas as pd
 from folder_file_name import folder_IngestionReport, file_IngestionReport
 from join_files import JoinFail
 from init_logger import log
+from excel_format import excel_Report_format
 
 # Logger
 logger = log('Ingestion Report')
@@ -14,12 +15,12 @@ class IngestionReport:
         self.env = env
 
     def ingestion_report(self):
-        ingestion_Report = JoinFail(self.start, self.finish, self.env)
-        e2eIngestionReportDetails = ingestion_Report.DetailReport()
-        e2eIngestionReportSummary = ingestion_Report.SummaryReport()
+        ingestion_Report = JoinFail(self.start, self.finish, self.env)  # JoinFail object creation
+        e2eIngestionReportDetails = ingestion_Report.DetailReport()  # Created Detail Report
+        e2eIngestionReportSummary = ingestion_Report.SummaryReport()  # Created Summary Report
         folder_path = folder_IngestionReport(e2eIngestionReportDetails)
         file_name = file_IngestionReport(e2eIngestionReportDetails)
-        with pd.ExcelWriter(folder_path + '\\' + file_name) as write:
+        with pd.ExcelWriter(folder_path + '\\' + file_name) as write:  # Excel is created with two different pandas DF
             e2eIngestionReportDetails[
                 ['INGESTION_ID', 'TYPE_OF_MESSAGE', 'CRNT_STATUS', 'INGESTION_SERVICE_MESSAGE_STARTED',
                  'INGESTION_SERVICE_MESSAGE_FINISHED', 'INGESTION SERVICE TOTAL TIME',
@@ -42,3 +43,5 @@ class IngestionReport:
                 write, index=False, sheet_name='DetailReportComputation')
             e2eIngestionReportSummary.to_excel(write, index=False, sheet_name='SummaryReport')
             logger.info('INGESTION REPORT CREATED SUCCESSFULLY ! .. path -> ' + folder_path + '\\' + file_name)
+        abs_path_report = folder_path + '\\' + file_name
+        excel_Report_format(abs_path_report)

@@ -21,6 +21,17 @@ def abs_path_Report_folder() -> str:
     return report_path
 
 
+# Macro folder absolut path
+def abs_path_Macro_folder() -> str:
+    verify_path = os.path.exists(os.path.abspath("../ExcelMacros/macros_format.xlsm"))
+    if verify_path:
+        macro_path = os.path.abspath("../ExcelMacros/macros_format.xlsm")
+        logger.info('ExcelMacros folder found ...')
+    else:
+        logger.error('ExcelMacros folder doesnt found!')
+    return macro_path
+
+
 # Resources folder absolut path
 def abs_path_resources() -> str:
     verify_path = os.path.exists(os.path.abspath("../resources"))
@@ -40,7 +51,22 @@ def abs_data_base_credentials() -> json:
         credentials_file = os.path.abspath(folder_path + '/data_base_credentials.json')
         with open(credentials_file) as f:
             db_credentials = json.load(f)
+        return db_credentials
         logger.info('Load db_credentials ...')
     else:
         logger.error('db_credentials doesnt found!')
-    return db_credentials
+
+
+# Return json with excel macros name
+def abs_excel_macros() -> json:
+    folder_path = abs_path_resources()
+    verify_path = os.path.exists(os.path.abspath(folder_path + '/macro.json'))
+    if verify_path:
+        macro_name = os.path.abspath(folder_path + '/macro.json')
+        with open(macro_name) as f:
+            macro = json.load(f)
+        return macro
+        logger.info('Excel Macro format start ...')
+    else:
+        logger.error('Error Macros Name!')
+
