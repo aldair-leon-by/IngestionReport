@@ -123,16 +123,7 @@ def mysql_query_computation_time(env):
         how="left")
     e2eComputationDetails = computation_time[
         ['INGESTION_ID', 'COMPUTATION_STARTED', 'COMPUTATION_FINISHED']].merge(
-        computation_performance[['COMPUTATION_FINISHED', 'INGESTION_ID',
-                                 'COMPUTATION_STATUS', 'totalCpuTimeMs',
-                                 'averageCpuTimeMs',
-                                 'performanceStatus',
-                                 'totalInvocationCount',
-                                 'currentInvocationCount',
-                                 'invocationPerObjectRatio',
-                                 'totalSourcingObjectCount',
-                                 'totalProcessedObjectCount'
-                                 ]],
+        computation_performance,
         on=["INGESTION_ID", "COMPUTATION_FINISHED"],
         how="left")
     logger.info('JOIN DETAILS COMPUTATION METRICS REPORT !!')

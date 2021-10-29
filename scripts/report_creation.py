@@ -18,6 +18,7 @@ class IngestionReport:
         ingestion_Report = JoinFail(self.start, self.finish, self.env)  # JoinFail object creation
         e2eIngestionReportDetails = ingestion_Report.DetailReport()  # Created Detail Report
         e2eIngestionReportSummary = ingestion_Report.SummaryReport()  # Created Summary Report
+        e2eIngestionReportDetailsPerformanceMetrics = ingestion_Report.DetailReportPerformanceMetrics()
         folder_path = folder_IngestionReport(e2eIngestionReportDetails)
         file_name = file_IngestionReport(e2eIngestionReportDetails)
         with pd.ExcelWriter(folder_path + '\\' + file_name) as write:  # Excel is created with two different pandas DF
@@ -30,17 +31,6 @@ class IngestionReport:
                  'COMPUTATION TOTAL TIME',
                  'totalSourcingObjectCount', 'TimeDiff']].to_excel(
                 write, index=False, sheet_name='DetailReport')
-            e2eIngestionReportDetails[
-                ['INGESTION_ID', 'totalCpuTimeMs',
-                 'averageCpuTimeMs',
-                 'performanceStatus',
-                 'totalInvocationCount',
-                 'currentInvocationCount',
-                 'invocationPerObjectRatio',
-                 'totalSourcingObjectCount',
-                 'totalProcessedObjectCount'
-                 ]].to_excel(
-                write, index=False, sheet_name='DetailReportComputation')
             e2eIngestionReportSummary.to_excel(write, index=False, sheet_name='SummaryReport')
             logger.info('INGESTION REPORT CREATED SUCCESSFULLY ! .. path -> ' + folder_path + '\\' + file_name)
         abs_path_report = folder_path + '\\' + file_name

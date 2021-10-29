@@ -29,16 +29,7 @@ class JoinFail:
             ['TYPE_OF_MESSAGE', 'CRNT_STATUS', 'INGESTION_SERVICE_MESSAGE_STARTED',
              'INGESTION_SERVICE_MESSAGE_FINISHED', 'MESSAGE_BROKER_STARTED', 'MESSAGE_BROKER_FINISHED',
              'LCT_ADAPTER_STARTED', 'LCT_ADAPTER_FINISHED', 'MSG_STATUS', 'INGESTION_ID']].merge(
-            computation[['INGESTION_ID', 'COMPUTATION_STARTED', 'COMPUTATION_FINISHED',
-                         'COMPUTATION_STATUS', 'totalCpuTimeMs',
-                         'averageCpuTimeMs',
-                         'performanceStatus',
-                         'totalInvocationCount',
-                         'currentInvocationCount',
-                         'invocationPerObjectRatio',
-                         'totalSourcingObjectCount',
-                         'totalProcessedObjectCount'
-                         ]],
+            computation,
             on=['INGESTION_ID'],
             how="left")
         self.e2eIngestionComputation = ave_time_execution(self.e2eIngestionComputation)
@@ -48,7 +39,7 @@ class JoinFail:
     def SummaryReport(self):
         self.e2eIngestionComputation = self.e2eIngestionComputation.astype({"totalSourcingObjectCount": int})
         self.e2eIngestionComputationSummary = self.e2eIngestionComputation.groupby(
-                ['TYPE_OF_MESSAGE', 'MSG_STATUS', 'COMPUTATION_STATUS']) \
+            ['TYPE_OF_MESSAGE', 'MSG_STATUS', 'COMPUTATION_STATUS']) \
             .agg(AVE_TIMEINGESTIONsec=('TimeDiff', 'mean'),
                  TOTAL_OBJECT_COUNT=('totalSourcingObjectCount', sum),
                  TOTAL_OF_MESSAGE=('COMPUTATION_STATUS', 'count'),
@@ -63,3 +54,11 @@ class JoinFail:
         logger.info('JOIN SUMMARY INGESTION TO COMPUTATION !!')
         return self.e2eIngestionComputationSummary
 
+    def DetailReportPerformanceMetrics(self):
+        message = list(self.e2eIngestionComputationSummary['TYPE_OF_MESSAGE'])
+        print(self.e2eIngestionComputation.columns)
+        for i in message:
+            if "Order" in i:
+                print('Es un order')
+            if "transport" in i:
+                print('Es un transportation')
