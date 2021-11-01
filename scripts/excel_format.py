@@ -26,7 +26,7 @@ def excel_Report_format(path_report_name):
         wb1.Application.Run(order_metrics)
         wb1.Worksheets('TransportationMetrics').Activate()
         wb1.Application.Run(transport_metrics)
-        xl.Visible = True
+        xl.Visible = False
         wb.Close(SaveChanges=1)
         wb1.Close(SaveChanges=1)
         xl.Application.Quit()
