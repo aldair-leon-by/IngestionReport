@@ -4,7 +4,10 @@
       {
 
          "detail_report": "macros_format.xlsm!ReportDetailFormat",
-         "summary_report": "macros_format.xlsm!ReportSummaryFormat"
+         "summary_report": "macros_format.xlsm!ReportSummaryFormat",
+         "order_metrics": "macros_format.xlsm!OrderMetrics",
+        "transport_metrics": "macros_format.xlsm!TransportationMetrics"
+
       }
    ]
 

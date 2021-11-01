@@ -11,6 +11,8 @@ def excel_Report_format(path_report_name):
     macros = abs_excel_macros()
     detail = macros['excel_macros'][0]['detail_report']
     summary = macros['excel_macros'][0]['summary_report']
+    order_metrics = macros['excel_macros'][0]['order_metrics']
+    transport_metrics = macros['excel_macros'][0]['transport_metrics']
     path = abs_path_Macro_folder()
     if os.path.exists(path):
         xl = win32com.client.Dispatch("Excel.Application")
@@ -20,6 +22,10 @@ def excel_Report_format(path_report_name):
         wb1.Application.Run(detail)
         wb1.Worksheets('SummaryReport').Activate()
         wb1.Application.Run(summary)
+        wb1.Worksheets('OrderMetrics').Activate()
+        wb1.Application.Run(order_metrics)
+        wb1.Worksheets('TransportationMetrics').Activate()
+        wb1.Application.Run(transport_metrics)
         xl.Visible = True
         wb.Close(SaveChanges=1)
         wb1.Close(SaveChanges=1)

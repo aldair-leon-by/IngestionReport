@@ -1,3 +1,7 @@
+import json
+
+import pandas as pd
+
 from sql_query import sql_query_message_Detail, sql_query_adapter_Detail
 from init_logger import log
 from mysql_query import mysql_query_computation_time
@@ -55,10 +59,13 @@ class JoinFail:
         return self.e2eIngestionComputationSummary
 
     def DetailReportPerformanceMetrics(self):
-        message = list(self.e2eIngestionComputationSummary['TYPE_OF_MESSAGE'])
-        print(self.e2eIngestionComputation.columns)
-        for i in message:
-            if "Order" in i:
-                print('Es un order')
-            if "transport" in i:
-                print('Es un transportation')
+        with open('../resources/performance_header.json') as f:
+            performance2 = json.load(f)
+        orderMetrics = self.e2eIngestionComputation[
+            self.e2eIngestionComputation['TYPE_OF_MESSAGE'].str.contains("Order")]
+        transportMetrics = self.e2eIngestionComputation[
+            self.e2eIngestionComputation['TYPE_OF_MESSAGE'].str.contains("transport")]
+        orderMetrics = orderMetrics[list(performance2['order'][0].values())]
+        transportMetrics = transportMetrics[list(performance2['transport'][0].values())]
+
+        return orderMetrics, transportMetrics

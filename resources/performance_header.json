@@ -1,10 +1,81 @@
 {
 
-     "Order": [
+     "order": [
       {
+          "1":"INGESTION_ID",
+          "2":"averageCpuTimeMs",
+          "3":"TYPE_OF_MESSAGE",
+          "4":"averageCpuTimeMs",
+          "5":"performanceStatus",
+          "6":"totalInvocationCount",
+          "7":"currentInvocationCount",
+          "8":"invocationPerObjectRatio",
+          "9":"totalSourcingObjectCount",
+          "10":"totalProcessedObjectCount",
+          "11":"ORDER_totalCpuTimeMs",
+          "12":"Order_averageCpuTimeMs",
+          "13":"Order_performanceStatus",
+          "14":"ORDER_totalInvocationCount",
+          "15":"ORDER_currentInvocationCount",
+          "16":"ORDER_invocationPerObjectRatio",
+          "17":"ORDER_totalSourcingObjectCount",
+          "18":"ORDER_totalProcessedObjectCount",
+          "19":"computation_backend_totalCpuTimeMs",
+          "20":"computation_backend_averageCpuTimeMs",
+          "21":"computation_backend_performanceStatus",
+          "22":"computation_backend_totalInvocationCount",
+          "23":"computation_backend_currentInvocationCount",
+          "24":"computation_backend_invocationPerObjectRatio",
+          "25":"computation_backend_totalSourcingObjectCount",
+          "26":"computation_backend_totalProcessedObjectCount",
+          "27":"computation_frontend_totalCpuTimeMs",
+          "28":"computation_frontend_averageCpuTimeMs",
+          "29":"computation_frontend_performanceStatus",
+          "30":"computation_frontend_totalInvocationCount",
+          "31":"computation_frontend_currentInvocationCount",
+          "33":"computation_frontend_invocationPerObjectRatio",
+          "34":"computation_frontend_totalSourcingObjectCount",
+          "35":"computation_frontend_totalProcessedObjectCount"
+      }
 
-         "1": "TYPE_OF_MESSAGE",
-         "2": "averageCpuTimeMs"
+     ],
+
+       "transport": [
+      {
+          "0":"INGESTION_ID",
+          "2":"averageCpuTimeMs",
+          "3":"TYPE_OF_MESSAGE",
+          "4":"averageCpuTimeMs",
+          "5":"performanceStatus",
+          "6":"totalInvocationCount",
+          "7":"currentInvocationCount",
+          "8":"invocationPerObjectRatio",
+          "9":"totalSourcingObjectCount",
+          "10":"totalProcessedObjectCount",
+          "11":"TRANSPORTATION_totalCpuTimeMs",
+          "12":"TRANSPORTATION_averageCpuTimeMs",
+          "13":"TRANSPORTATION_performanceStatus",
+          "14":"TRANSPORTATION_totalInvocationCount",
+          "15":"TRANSPORTATION_currentInvocationCount",
+          "16":"TRANSPORTATION_invocationPerObjectRatio",
+          "17":"TRANSPORTATION_totalSourcingObjectCount",
+          "18":"TRANSPORTATION_totalProcessedObjectCount",
+          "19":"computation_backend_totalCpuTimeMs",
+          "20":"computation_backend_averageCpuTimeMs",
+          "21":"computation_backend_performanceStatus",
+          "22":"computation_backend_totalInvocationCount",
+          "23":"computation_backend_currentInvocationCount",
+          "24":"computation_backend_invocationPerObjectRatio",
+          "25":"computation_backend_totalSourcingObjectCount",
+          "26":"computation_backend_totalProcessedObjectCount",
+          "27":"computation_frontend_totalCpuTimeMs",
+          "28":"computation_frontend_averageCpuTimeMs",
+          "29":"computation_frontend_performanceStatus",
+          "30":"computation_frontend_totalInvocationCount",
+          "31":"computation_frontend_currentInvocationCount",
+          "33":"computation_frontend_invocationPerObjectRatio",
+          "34":"computation_frontend_totalSourcingObjectCount",
+          "35":"computation_frontend_totalProcessedObjectCount"
       }
    ]
 

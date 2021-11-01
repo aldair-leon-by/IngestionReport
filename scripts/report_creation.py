@@ -18,6 +18,7 @@ class IngestionReport:
         ingestion_Report = JoinFail(self.start, self.finish, self.env)  # JoinFail object creation
         e2eIngestionReportDetails = ingestion_Report.DetailReport()  # Created Detail Report
         e2eIngestionReportSummary = ingestion_Report.SummaryReport()  # Created Summary Report
+        # Performance Metrics
         e2eIngestionReportDetailsPerformanceMetrics = ingestion_Report.DetailReportPerformanceMetrics()
         folder_path = folder_IngestionReport(e2eIngestionReportDetails)
         file_name = file_IngestionReport(e2eIngestionReportDetails)
@@ -32,6 +33,9 @@ class IngestionReport:
                  'totalSourcingObjectCount', 'TimeDiff']].to_excel(
                 write, index=False, sheet_name='DetailReport')
             e2eIngestionReportSummary.to_excel(write, index=False, sheet_name='SummaryReport')
+            e2eIngestionReportDetailsPerformanceMetrics[0].to_excel(write, index=False, sheet_name='OrderMetrics')
+            e2eIngestionReportDetailsPerformanceMetrics[1].to_excel(write, index=False,
+                                                                    sheet_name='TransportationMetrics')
             logger.info('INGESTION REPORT CREATED SUCCESSFULLY ! .. path -> ' + folder_path + '\\' + file_name)
         abs_path_report = folder_path + '\\' + file_name
         excel_Report_format(abs_path_report)
