@@ -1,6 +1,6 @@
 import json
 import os
-from init_logger import log
+from scripts.init_logger import log
 
 """
 Env configurations and folders path
@@ -12,9 +12,9 @@ logger = log('ENV SETUP')
 
 # Report folder absolut path
 def abs_path_Report_folder() -> str:
-    verify_path = os.path.exists(os.path.abspath("../Report"))
+    verify_path = os.path.exists(os.path.abspath("Report"))
     if verify_path:
-        report_path = os.path.abspath("../Report")
+        report_path = os.path.abspath("Report")
         logger.info('Report folder found ...')
     else:
         logger.error('Report folder doesnt found!')
@@ -23,9 +23,9 @@ def abs_path_Report_folder() -> str:
 
 # Macro folder absolut path
 def abs_path_Macro_folder() -> str:
-    verify_path = os.path.exists(os.path.abspath("../ExcelMacros/macros_format.xlsm"))
+    verify_path = os.path.exists(os.path.abspath("ExcelMacros/macros_format.xlsm"))
     if verify_path:
-        macro_path = os.path.abspath("../ExcelMacros/macros_format.xlsm")
+        macro_path = os.path.abspath("ExcelMacros/macros_format.xlsm")
         logger.info('ExcelMacros folder found ...')
     else:
         logger.error('ExcelMacros folder doesnt found!')
@@ -34,9 +34,9 @@ def abs_path_Macro_folder() -> str:
 
 # Resources folder absolut path
 def abs_path_resources() -> str:
-    verify_path = os.path.exists(os.path.abspath("../resources"))
+    verify_path = os.path.exists(os.path.abspath("resources"))
     if verify_path:
-        resource_path = os.path.abspath("../resources")
+        resource_path = os.path.abspath("resources")
         logger.info('Resources folder found ...')
     else:
         logger.error('Resources folder doesnt found!')

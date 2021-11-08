@@ -1,11 +1,8 @@
 import json
-
-import pandas as pd
-
-from sql_query import sql_query_message_Detail, sql_query_adapter_Detail
-from init_logger import log
-from mysql_query import mysql_query_computation_time
-from time_calculation import ave_time_execution
+from scripts.sql_query import sql_query_message_Detail, sql_query_adapter_Detail
+from scripts.init_logger import log
+from scripts.mysql_query import mysql_query_computation_time
+from scripts.time_calculation import ave_time_execution
 
 # Logger
 logger = log('JOIN REPORTS')
@@ -59,7 +56,7 @@ class JoinFail:
         return self.e2eIngestionComputationSummary
 
     def DetailReportPerformanceMetrics(self):
-        with open('../resources/performance_header.json') as f:
+        with open('resources/performance_header.json') as f:
             performance2 = json.load(f)
         orderMetrics = self.e2eIngestionComputation[
             self.e2eIngestionComputation['TYPE_OF_MESSAGE'].str.contains("Order")]

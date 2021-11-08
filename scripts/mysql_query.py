@@ -1,10 +1,10 @@
 import json
 from errno import errorcode
 import mysql
-from db_connection import mysql_connection
+from scripts.db_connection import mysql_connection
 import pandas as pd
-from init_logger import log
-from env_config import abs_path_resources
+from scripts.init_logger import log
+from scripts.env_config import abs_path_resources
 
 # Logger
 logger = log('ENV SETUP')

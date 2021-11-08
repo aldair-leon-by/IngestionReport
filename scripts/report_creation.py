@@ -1,8 +1,8 @@
 import pandas as pd
-from folder_file_name import folder_IngestionReport, file_IngestionReport
-from join_files import JoinFail
-from init_logger import log
-from excel_format import excel_Report_format
+from scripts.folder_file_name import folder_IngestionReport, file_IngestionReport
+from scripts.join_files import JoinFail
+from scripts.init_logger import log
+from scripts.excel_format import excel_Report_format
 
 # Logger
 logger = log('Ingestion Report')
@@ -39,3 +39,4 @@ class IngestionReport:
             logger.info('INGESTION REPORT CREATED SUCCESSFULLY ! .. path -> ' + folder_path + '\\' + file_name)
         abs_path_report = folder_path + '\\' + file_name
         excel_Report_format(abs_path_report)
+        return abs_path_report

@@ -1,7 +1,7 @@
 import os
 import win32com.client
-from env_config import abs_path_Macro_folder, abs_excel_macros
-from init_logger import log
+from scripts.env_config import abs_path_Macro_folder, abs_excel_macros
+from scripts.init_logger import log
 
 # Logger
 logger = log('ENV SETUP')

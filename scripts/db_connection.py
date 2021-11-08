@@ -1,8 +1,8 @@
 import mysql.connector
 import pyodbc
 from mysql.connector import errorcode
-from env_config import abs_data_base_credentials
-from init_logger import log
+from scripts.env_config import abs_data_base_credentials
+from scripts.init_logger import log
 
 # Logger
 logger = log('DB CONNECTION')

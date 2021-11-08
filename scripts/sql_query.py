@@ -1,9 +1,9 @@
 from datetime import datetime
 import pyodbc
-from db_connection import sql_connection_message_storage, sql_connection_adapter
+from scripts.db_connection import sql_connection_message_storage, sql_connection_adapter
 import pandas as pd
-from init_logger import log
-from env_config import abs_path_resources
+from scripts.init_logger import log
+from scripts.env_config import abs_path_resources
 
 # Logger
 logger = log('SQL Query execution')
@@ -57,6 +57,7 @@ def sql_query_message_Detail(start_time, finish_time, env):
             '%', '%', 'Received', '%BYDM%', start_time, finish_time, 'Processed'),
                                       con=connection_message)
         logger.info('Message store query execution completed!')
+        print(len(sql_query), "-----------------------------------------------------------")
         return sql_query
     except pyodbc.Error as ex:
         logger.error(ex)

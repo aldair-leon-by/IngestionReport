@@ -1,5 +1,5 @@
 from datetime import datetime
-from init_logger import log
+from scripts.init_logger import log
 
 # Logger
 logger = log('ENV SETUP')
@@ -8,11 +8,22 @@ logger = log('ENV SETUP')
 def ave_time_execution(e2eIngestionComputation):
     total_time = []
     for i in range(len(e2eIngestionComputation)):
-        adapter = datetime.strptime(str(e2eIngestionComputation.iloc[i, 7]), '%Y-%m-%d %H:%M:%S.%f').strftime(
-            '%H:%M:%S.%f')
-        computation = datetime.strptime(str(e2eIngestionComputation.iloc[i, 11]),
-                                        '%Y-%m-%d %H:%M:%S.%f').strftime(
-            '%H:%M:%S.%f')
+        try:
+            adapter = datetime.strptime(str(e2eIngestionComputation.iloc[i, 7]), '%Y-%m-%d %H:%M:%S.%f').strftime(
+                '%H:%M:%S.%f')
+            computation = datetime.strptime(str(e2eIngestionComputation.iloc[i, 11]),
+                                            '%Y-%m-%d %H:%M:%S.%f').strftime(
+                '%H:%M:%S.%f')
+        except ValueError:
+            pass
+        try:
+            adapter = datetime.strptime(str(e2eIngestionComputation.iloc[i, 7]), '%Y-%m-%d %H:%M:%S').strftime(
+                '%H:%M:%S.%f')
+            computation = datetime.strptime(str(e2eIngestionComputation.iloc[i, 11]),
+                                            '%Y-%m-%d %H:%M:%S').strftime(
+                '%H:%M:%S.%f')
+        except ValueError:
+            pass
         if adapter > computation:
             timeDiff = e2eIngestionComputation.iloc[i, 8] - e2eIngestionComputation.iloc[i, 3]
             td = str(timeDiff).split(' ')[-1:][0]

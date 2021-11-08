@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from env_config import abs_path_Report_folder
+from scripts.env_config import abs_path_Report_folder
 
 
 def folder_name_date(report):
