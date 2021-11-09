@@ -57,7 +57,6 @@ def sql_query_message_Detail(start_time, finish_time, env):
             '%', '%', 'Received', '%BYDM%', start_time, finish_time, 'Processed'),
                                       con=connection_message)
         logger.info('Message store query execution completed!')
-        print(len(sql_query), "-----------------------------------------------------------")
         return sql_query
     except pyodbc.Error as ex:
         logger.error(ex)

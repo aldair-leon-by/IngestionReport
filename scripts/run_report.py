@@ -32,4 +32,3 @@ def app():
             st.success('Done!')
             st.success('File download in this location: ')
             st.success(path)
-            return path

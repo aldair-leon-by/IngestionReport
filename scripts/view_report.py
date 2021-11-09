@@ -75,7 +75,6 @@ class DashboardIngestion:
                 "& `INGESTION SERVICE MESSAGE STARTED` >= @option & `COMPUTATION FINISHED` <= @option2 "
                 "& `COMPUTATION STATUS` == @computation_status & `CRNT STATUS` == @ingestion_status"
             )
-
         with st.container():
             total_count_object = self.df_selection['TOTAL COUNT OBJECT'].sum()
             total_time_ingestion = max(self.df_selection['COMPUTATION FINISHED']) - \
@@ -84,6 +83,9 @@ class DashboardIngestion:
 
             total_of_messages = sum(self.summary_report['TOTAL OF MESSAGE'])
             total_of_objects = sum(self.summary_report['TOTAL OBJECT COUNT'])
+
+            min_time_ingestion = min(self.df_selection['TOTAL TIME INGESTION(sec)'])
+            max_time_ingestion = max(self.df_selection['TOTAL TIME INGESTION(sec)'])
 
             col1, col2, col3 = st.columns(3)
             count_ingest_total = go.Figure(go.Indicator(
@@ -114,6 +116,8 @@ class DashboardIngestion:
             col1.plotly_chart(count_ingest_total, use_container_width=True)
             col2.plotly_chart(count_total_objects, use_container_width=True)
             col3.metric(label="e2e Total time Ingestion", value=str(total_time_ingestion) + " sec")
+            col3.metric(label="min Total time Ingestion", value=str(min_time_ingestion) + " sec")
+            col3.metric(label="max Total time Ingestion", value=str(max_time_ingestion) + " sec")
 
     def dash_board_service(self):
         with st.container():  # Container Services Report
