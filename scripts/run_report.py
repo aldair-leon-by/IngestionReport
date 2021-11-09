@@ -14,11 +14,11 @@ def app():
     env = st.selectbox('Select environment', ('Choose env', 'sql_db_uat', 'sql_db_prod'))
     col1, col2 = st.columns(2)
     with col1:
-        date_start = st.date_input("Date Start", datetime.date(2021, 1, 1))
-        time_start = st.text_input('Time Start HH:MM:SS.fff', '00:00:00.000')
+        date_start = st.date_input("Start Date", datetime.date(2021, 1, 1))
+        time_start = st.text_input('Start Time HH:MM:SS.fff', '00:00:00.000')
     with col2:
-        date_finish = st.date_input("Date Finish", datetime.date(2021, 1, 1), key=1)
-        time_finish = st.text_input('Time Finish HH:MM:SS.fff', '00:00:00.000', key=2)
+        date_finish = st.date_input("Finish Date", datetime.date(2021, 1, 1), key=1)
+        time_finish = st.text_input('Finish Time HH:MM:SS.fff', '00:00:00.000', key=2)
 
     if st.button('Run Report'):
         if env == 'Choose env':
