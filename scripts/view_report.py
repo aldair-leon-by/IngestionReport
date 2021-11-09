@@ -27,12 +27,12 @@ def format_time(time):
 
 class DashboardIngestion:
 
-    def __init__(self,data):
+    def __init__(self, data):
         self.data = data
 
-    @st.cache
     def dash_board_top(self):
         self.detail_report = pd.read_excel(self.data, sheet_name='DetailReport')
+        self.summary_report = pd.read_excel(self.data, sheet_name='SummaryReport')
         with st.container():  # Container Header
             st.title(":bar_chart: Ingestion Report")
             st.markdown("###")
@@ -81,9 +81,38 @@ class DashboardIngestion:
             total_time_ingestion = max(self.df_selection['COMPUTATION FINISHED']) - \
                                    min(self.df_selection['INGESTION SERVICE MESSAGE STARTED'])
             total_time_ingestion = format_time(total_time_ingestion)
+
+            total_of_messages = sum(self.summary_report['TOTAL OF MESSAGE'])
+            total_of_objects = sum(self.summary_report['TOTAL OBJECT COUNT'])
+
             col1, col2, col3 = st.columns(3)
-            col1.metric(label="Number of ingestion", value=len(self.df_selection))
-            col2.metric(label="Total count objects", value=int(total_count_object))
+            count_ingest_total = go.Figure(go.Indicator(
+                domain={'x': [0, 1], 'y': [0, 1]},
+                value=len(self.df_selection),
+                mode="gauge+number",
+                title={'text': "Total of messages"},
+                gauge={'axis': {'range': [None, total_of_messages]},
+                       'steps': [
+                           {'range': [0, total_of_messages / 2], 'color': "lightgray"},
+                           {'range': [total_of_messages + 1 / 2, total_of_messages], 'color': "gray"}],
+                       'threshold': {'line': {'color': "red", 'width': 4}, 'thickness': 0.75,
+                                     'value': total_of_messages + 1}
+                       }))
+            count_total_objects = go.Figure(go.Indicator(
+                domain={'x': [0, 1], 'y': [0, 1]},
+                value=total_count_object,
+                mode="gauge+number",
+                title={'text': "Total count objects"},
+                gauge={'axis': {'range': [None, total_of_objects]},
+                       'steps': [
+                           {'range': [0, total_of_objects / 2], 'color': "lightgray"},
+                           {'range': [total_of_objects + 1 / 2, total_of_objects], 'color': "gray"}],
+                       'threshold': {'line': {'color': "red", 'width': 4}, 'thickness': 0.75,
+                                     'value': total_of_objects}
+                       }))
+
+            col1.plotly_chart(count_ingest_total, use_container_width=True)
+            col2.plotly_chart(count_total_objects, use_container_width=True)
             col3.metric(label="e2e Total time Ingestion", value=str(total_time_ingestion) + " sec")
 
     def dash_board_service(self):
@@ -122,30 +151,30 @@ class DashboardIngestion:
 
             left_column, middle_column, middle_column2, right_column, right_column2 = st.columns(5)
             with left_column:
-                st.markdown('#### :pushpin: Ingestion Service')
-                st.markdown(f"###### Elapsed Time: {timeDiff_calculation_total_ingestion} sec")
-                st.markdown(f"###### Execution Time: {execution_time_total_ingestion_service} sec")
-                st.markdown(f"###### Average Time: {average_total_ingestion_service} sec")
+                st.markdown('#### Ingestion Service')
+                st.text(f"Elapsed Time: {timeDiff_calculation_total_ingestion} sec")
+                st.text(f"Execution Time: {execution_time_total_ingestion_service} sec")
+                st.text(f"Average Time: {average_total_ingestion_service} sec")
             with middle_column:
-                st.markdown('#### :pushpin: Message Broker')
-                st.markdown(f"###### Elapsed Time: {timeDiff_calculation_message_broker_service} sec")
-                st.markdown(f"###### Execution Time: {execution_time_total_message_broker_service} sec")
-                st.markdown(f"###### Average Time: {average_total_message_broker} sec")
+                st.markdown('#### Message Broker')
+                st.text(f"Elapsed Time: {timeDiff_calculation_message_broker_service} sec")
+                st.text(f"Execution Time: {execution_time_total_message_broker_service} sec")
+                st.text(f"Average Time: {average_total_message_broker} sec")
             with middle_column2:
-                st.markdown('#### :pushpin: LCT Adapter')
-                st.markdown(f"###### Elapsed Time: {timeDiff_calculation_lct_adapter_service} sec")
-                st.markdown(f"###### Execution Time: {execution_time_total_lct_adapter_service} sec")
-                st.markdown(f"###### Average Time: {average_total_lct_adapter} sec")
+                st.markdown('#### LCT Adapter')
+                st.text(f"Elapsed Time: {timeDiff_calculation_lct_adapter_service} sec")
+                st.text(f"Execution Time: {execution_time_total_lct_adapter_service} sec")
+                st.text(f"Average Time: {average_total_lct_adapter} sec")
             with right_column:
-                st.markdown('#### :pushpin: Computation')
-                st.markdown(f"###### Elapsed Time: {timeDiff_calculation_total_ingestion} sec")
-                st.markdown(f"###### Execution Time: {execution_time_total_computation_service} sec")
-                st.markdown(f"###### Average Time: {average_total_computation_service} sec")
+                st.markdown('#### Computation')
+                st.text(f"Elapsed Time: {timeDiff_calculation_total_ingestion} sec")
+                st.text(f"Execution Time: {execution_time_total_computation_service} sec")
+                st.text(f"Average Time: {average_total_computation_service} sec")
             with right_column2:
-                st.markdown('#### :pushpin: Total Ingestion')
-                st.markdown(f"###### Elapsed Time: {timeDiff_calculation_total_ingestion} sec")
-                st.markdown(f"###### Execution Time: {execution_time_total_ingestion} sec")
-                st.markdown(f"###### Average Time: {average_total_ingestion} sec")
+                st.markdown('#### Total Ingestion')
+                st.text(f"Elapsed Time: {timeDiff_calculation_total_ingestion} sec")
+                st.text(f"Execution Time: {execution_time_total_ingestion} sec")
+                st.text(f"Average Time: {average_total_ingestion} sec")
             with st.expander('Services Charts'):
                 header = ['Ingest Service', 'Message Broker', 'LCT Adapter', 'Computation']
                 time_elapsed = [timeDiff_calculation_ingestion_service, timeDiff_calculation_message_broker_service,
@@ -211,20 +240,22 @@ class DashboardIngestion:
             average_time = []
             for i in range(0, len(message_type)):
                 with message_type[i]:
-                    st.markdown(f'###### Message type: {message_type_[i]}')
+                    st.markdown(f'##### {message_type_[i]}')
+                    x = summary['COMPUTATION STATUS'].values[i][0]
+                    st.text(f'Status: {x}')
                     x = summary['TOTAL COUNT OBJECT'].values[i][0]
-                    st.markdown(f'###### Total count objects: {x}')
+                    st.text(f'Total count objects: {x}')
                     total_object.append(x)
                     x = summary['TOTAL TIME INGESTION(sec)'].values[i][0]
-                    st.markdown(f'###### Average time ingestion: {x} sec')
+                    st.text(f'Average time ingestion: {x} sec')
                     average_time.append(x)
                     x = summary['COMPUTATION STATUS'].values[i][1]
-                    st.markdown(f'###### Total of messages: {x}')
+                    st.text(f'Total of messages: {x}')
                     total_messages.append(x)
                     time = np.datetime64(summary['COMPUTATION FINISHED'].values[i][0]) - \
                            np.datetime64(summary['INGESTION SERVICE MESSAGE STARTED'].values[i][0])
                     seconds = time / np.timedelta64(1, 's')
-                    st.markdown(f'###### Elapsed time ingestion: {seconds} sec')
+                    st.text(f' Elapsed time ingestion: {seconds} sec')
                     elapsed_time_pay_chart.append(seconds)
             with st.expander('Message Type Charts'):
                 total_message_chart = go.Figure(
@@ -264,7 +295,7 @@ class DashboardIngestion:
 
 def app():
     st.title('View Report')
-    uploaded_file = st.file_uploader("Choose a file")
+    uploaded_file = st.file_uploader("Select report")
     if uploaded_file is not None:
         view_report = DashboardIngestion(uploaded_file)
         view_report.dash_board_top()
