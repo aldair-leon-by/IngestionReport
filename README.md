@@ -1,6 +1,3 @@
 ﻿# IngestionReport
  
-e2eReport, this tool created reports about Ingestion status, Mule to LCT.
-
-This class IngestionReport request of date_start and date_finish in this format YY/MM/DD HH:MM:SS.FFF and
-env "sql_db_uat or sql_db_sit"
+![image](https://user-images.githubusercontent.com/65984000/141190293-089c8018-333b-44ef-86a7-fe6d2df5e36d.png)
