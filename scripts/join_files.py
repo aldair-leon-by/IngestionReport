@@ -10,15 +10,16 @@ logger = log('JOIN REPORTS')
 
 class JoinFail:
 
-    def __init__(self, start_time, finish_time, env):
+    def __init__(self, start_time, finish_time, env,customer):
         self.start_time = start_time
         self.finish_time = finish_time
         self.env = env
+        self.customer = customer
 
     def DetailReport(self):
-        message_store = sql_query_message_Detail(self.start_time, self.finish_time, self.env)
-        lct_adapter = sql_query_adapter_Detail(self.start_time, self.finish_time, self.env)
-        computation = mysql_query_computation_time(self.env)
+        message_store = sql_query_message_Detail(self.start_time, self.finish_time, self.env, self.customer)
+        lct_adapter = sql_query_adapter_Detail(self.start_time, self.finish_time, self.env, self.customer)
+        computation = mysql_query_computation_time(self.env, self.customer)
         e2eIngestionDetails = message_store[
             ['TYPE_OF_MESSAGE', 'CRNT_STATUS', 'MESSAGE_BROKER_BLK_ID', 'INGESTION_SERVICE_MESSAGE_STARTED',
              'INGESTION_SERVICE_MESSAGE_FINISHED', 'MESSAGE_BROKER_STARTED', 'MESSAGE_BROKER_FINISHED']].merge(

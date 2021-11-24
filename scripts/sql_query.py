@@ -10,8 +10,8 @@ logger = log('SQL Query execution')
 
 
 # SQL Query Ingest Service to Message Broker line by line
-def sql_query_message_Detail(start_time, finish_time, env):
-    connection_message = sql_connection_message_storage(env)
+def sql_query_message_Detail(start_time, finish_time, env,customer):
+    connection_message = sql_connection_message_storage(env,customer)
     start_time = datetime.strptime(start_time, '%y/%m/%d %H:%M:%S.%f')
     finish_time = datetime.strptime(finish_time, '%y/%m/%d %H:%M:%S.%f')
     # Query to execute
@@ -63,9 +63,9 @@ def sql_query_message_Detail(start_time, finish_time, env):
 
 
 # SQL Query LCT Adapter line by line
-def sql_query_adapter_Detail(start_time, finish_time, env):
+def sql_query_adapter_Detail(start_time, finish_time, env,customer):
     resources_path = abs_path_resources()
-    connection_adapter = sql_connection_adapter(env)
+    connection_adapter = sql_connection_adapter(env,customer)
     start_time = datetime.strptime(start_time, '%y/%m/%d %H:%M:%S.%f')
     finish_time = datetime.strptime(finish_time, '%y/%m/%d %H:%M:%S.%f')
     query = 'SELECT AUDIT_TBL.MSG_TYPE,' \

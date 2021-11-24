@@ -21,8 +21,8 @@ def get_ingestion_id():
 
 
 # Computation time start to finish in every ingestion_id
-def mysql_query_computation_time(env):
-    cnx = mysql_connection(env)
+def mysql_query_computation_time(env,customer):
+    cnx = mysql_connection(env,customer)
     ingestion_id = get_ingestion_id()
     format_strings = ",".join(['%s'] * len(ingestion_id))
     query_start = "SELECT ingestion_id as INGESTION_ID, min(event_time) AS COMPUTATION_STARTED " \

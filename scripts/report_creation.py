@@ -9,13 +9,14 @@ logger = log('Ingestion Report')
 
 
 class IngestionReport:
-    def __init__(self, start, finish, env):
+    def __init__(self, start, finish, env, customer):
         self.start = start
         self.finish = finish
         self.env = env
+        self.customer = customer
 
     def ingestion_report(self):
-        ingestion_Report = JoinFail(self.start, self.finish, self.env)  # JoinFail object creation
+        ingestion_Report = JoinFail(self.start, self.finish, self.env, self.customer)  # JoinFail object creation
         e2eIngestionReportDetails = ingestion_Report.DetailReport()  # Created Detail Report
         e2eIngestionReportSummary = ingestion_Report.SummaryReport()  # Created Summary Report
         # Performance Metrics
