@@ -10,14 +10,24 @@ Env configurations and folders path
 logger = log('ENV SETUP')
 
 
+# Create Report folder
+def report_folder():
+    verify_path = os.path.exists(os.path.abspath("Report"))
+    if verify_path:
+        logger.info('Report folder found ...')
+    else:
+        os.makedirs('Report')
+
+
 # Report folder absolut path
 def abs_path_Report_folder() -> str:
+    report_folder()
     verify_path = os.path.exists(os.path.abspath("Report"))
     if verify_path:
         report_path = os.path.abspath("Report")
         logger.info('Report folder found ...')
     else:
-        logger.error('Report folder doesnt found!')
+        logger.info('Report folder created ...')
     return report_path
 
 
@@ -69,4 +79,3 @@ def abs_excel_macros() -> json:
         logger.info('Excel Macro format start ...')
     else:
         logger.error('Error Macros Name!')
-
