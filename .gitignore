@@ -2,5 +2,3 @@ __pycache__/
 .idea/
 Report/
 Test/
-resources/ingestion_id.json
-ExcelMacros/macros_format.xlsm
