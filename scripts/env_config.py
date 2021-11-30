@@ -17,6 +17,7 @@ def report_folder():
         logger.info('Report folder found ...')
     else:
         os.makedirs('Report')
+        logger.info('Report folder created ...')
 
 
 # Report folder absolut path
