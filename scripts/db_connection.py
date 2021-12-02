@@ -11,10 +11,10 @@ logger = log('DB CONNECTION')
 # MYSQL connection STACK_DB
 def mysql_connection(env,customer):
     db = abs_data_base_credentials()
-    mysql_server = db[customer]['my' + env][0]['mysql_server']
-    mysql_username = db[customer]['my' + env][0]['mysql_username']
-    mysql_password = db[customer]['my' + env][0]['mysql_password']
-    mysql_db = db[customer]['my' + env][0]['mysql_database']
+    mysql_server = db[customer]['mysql_db_' + env][0]['mysql_server']
+    mysql_username = db[customer]['mysql_db_' + env][0]['mysql_username']
+    mysql_password = db[customer]['mysql_db_' + env][0]['mysql_password']
+    mysql_db = db[customer]['mysql_db_' + env][0]['mysql_database']
     try:
         cnx = mysql.connector.connect(user=mysql_username, password=mysql_password,
                                       host=mysql_server,
@@ -35,10 +35,10 @@ def mysql_connection(env,customer):
 # SQL connection message_store db
 def sql_connection_message_storage(env, customer):
     db = abs_data_base_credentials()
-    sql_server = db[customer][env][0]['sql_server']
-    sql_username = db[customer][env][0]['sql_username']
-    sql_password = db[customer][env][0]['sql_password']
-    sql_db = db[customer][env][0]['sql_database_message_store']
+    sql_server = db[customer]['sql_db_'+env][0]['sql_server']
+    sql_username = db[customer]['sql_db_'+env][0]['sql_username']
+    sql_password = db[customer]['sql_db_'+env][0]['sql_password']
+    sql_db = db[customer]['sql_db_'+env][0]['sql_database_message_store']
     try:
         connection_message = pyodbc.connect(
             'DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + sql_server + ';DATABASE=' + sql_db + ';UID=' +
@@ -52,10 +52,10 @@ def sql_connection_message_storage(env, customer):
 # SQL connection LCT_adapter db
 def sql_connection_adapter(env, customer):
     db = abs_data_base_credentials()
-    sql_server = db[customer][env][0]['sql_server']
-    sql_username = db[customer][env][0]['sql_username']
-    sql_password = db[customer][env][0]['sql_password']
-    sql_db = db[customer][env][0]['sql_database_adapter']
+    sql_server = db[customer]['sql_db_'+env][0]['sql_server']
+    sql_username = db[customer]['sql_db_'+env][0]['sql_username']
+    sql_password = db[customer]['sql_db_'+env][0]['sql_password']
+    sql_db = db[customer]['sql_db_'+env][0]['sql_database_adapter']
     try:
         connection_adapter = pyodbc.connect(
             'DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + sql_server + ';DATABASE=' + sql_db + ';UID=' +

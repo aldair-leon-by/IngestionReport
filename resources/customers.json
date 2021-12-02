@@ -1,0 +1,14 @@
+{
+  "customer": {
+    "0": "Select customer",
+    "1": "SW",
+    "2": "Loblaw",
+    "3": "GSK"
+  },
+    "env": {
+    "0": "Select env",
+    "1": "sit",
+    "2": "uat",
+    "3": "prod"
+  }
+}

@@ -3,6 +3,7 @@ from scripts.sql_query import sql_query_message_Detail, sql_query_adapter_Detail
 from scripts.init_logger import log
 from scripts.mysql_query import mysql_query_computation_time
 from scripts.time_calculation import ave_time_execution
+import pandas as pd
 
 # Logger
 logger = log('JOIN REPORTS')
@@ -42,7 +43,7 @@ class JoinFail:
         self.e2eIngestionComputation = self.e2eIngestionComputation.astype({"totalSourcingObjectCount": int})
         self.e2eIngestionComputationSummary = self.e2eIngestionComputation.groupby(
             ['TYPE_OF_MESSAGE', 'MSG_STATUS', 'COMPUTATION_STATUS']) \
-            .agg(AVE_TIMEINGESTIONsec=('TimeDiff', 'mean'),
+            .agg(AVE_TIMEINGESTIONsec=('TOTAL TIME INGESTION', 'mean'),
                  TOTAL_OBJECT_COUNT=('totalSourcingObjectCount', sum),
                  TOTAL_OF_MESSAGE=('COMPUTATION_STATUS', 'count'),
                  INGESTION_SERVICE_MESSAGE_STARTED=('INGESTION_SERVICE_MESSAGE_STARTED', 'min'),
@@ -65,5 +66,10 @@ class JoinFail:
             self.e2eIngestionComputation['TYPE_OF_MESSAGE'].str.contains("transport")]
         orderMetrics = orderMetrics[list(performance2['order'][0].values())]
         transportMetrics = transportMetrics[list(performance2['transport'][0].values())]
-
         return orderMetrics, transportMetrics
+
+    def customer_name(self):
+        customer_name = {'Customer Name': [self.customer],
+                         'Environment': [self.env]}
+        df_customer_name = pd.DataFrame(customer_name)
+        return df_customer_name

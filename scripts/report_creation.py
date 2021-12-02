@@ -15,10 +15,15 @@ class IngestionReport:
         self.env = env
         self.customer = customer
 
+    def customer_name(self):
+        customer_name = {'Customer Name': [self.customer]}
+        self.df_customer_name = pd.DataFrame(customer_name)
+
     def ingestion_report(self):
         ingestion_Report = JoinFail(self.start, self.finish, self.env, self.customer)  # JoinFail object creation
         e2eIngestionReportDetails = ingestion_Report.DetailReport()  # Created Detail Report
         e2eIngestionReportSummary = ingestion_Report.SummaryReport()  # Created Summary Report
+        customer_name = ingestion_Report.customer_name()
         # Performance Metrics
         e2eIngestionReportDetailsPerformanceMetrics = ingestion_Report.DetailReportPerformanceMetrics()
         folder_path = folder_IngestionReport(e2eIngestionReportDetails)
@@ -31,12 +36,13 @@ class IngestionReport:
                  'LCT_ADAPTER_STARTED', 'LCT_ADAPTER_FINISHED', 'LCT ADAPTER TOTAL TIME',
                  'MSG_STATUS', 'COMPUTATION_STARTED', 'COMPUTATION_FINISHED', 'COMPUTATION_STATUS',
                  'COMPUTATION TOTAL TIME',
-                 'totalSourcingObjectCount', 'TimeDiff']].to_excel(
+                 'totalSourcingObjectCount', 'TOTAL TIME INGESTION']].to_excel(
                 write, index=False, sheet_name='DetailReport')
             e2eIngestionReportSummary.to_excel(write, index=False, sheet_name='SummaryReport')
             e2eIngestionReportDetailsPerformanceMetrics[0].to_excel(write, index=False, sheet_name='OrderMetrics')
             e2eIngestionReportDetailsPerformanceMetrics[1].to_excel(write, index=False,
                                                                     sheet_name='TransportationMetrics')
+            customer_name.to_excel(write, index=False, sheet_name='CustomerName')
             logger.info('INGESTION REPORT CREATED SUCCESSFULLY ! .. path -> ' + folder_path + '\\' + file_name)
         abs_path_report = folder_path + '\\' + file_name
         excel_Report_format(abs_path_report)

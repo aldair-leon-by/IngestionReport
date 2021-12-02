@@ -1,28 +1,9 @@
-from io import StringIO
-
 import numpy as np
 import pandas as pd
 import plotly.express as px
 import streamlit as st
-from datetime import datetime
 import plotly.graph_objects as go
-
-
-def format_time(time):
-    td = str(time).split(' ')[-1:][0]
-    try:
-        timeDiff2 = datetime.strptime(str(td), '%H:%M:%S.%f').strftime('%H:%M:%S.%f')
-    except ValueError:
-        pass
-    try:
-        timeDiff2 = datetime.strptime(str(td), '%H:%M:%S').strftime('%H:%M:%S.%f')
-
-    except ValueError:
-        pass
-    ftr = [3600, 60, 1]
-    u = sum([a * b for a, b in zip(ftr, map(float, timeDiff2.split(':')))])
-    u = round(u, 2)
-    return u
+from scripts.time_calculation import format_time_dashboard
 
 
 class DashboardIngestion:
@@ -33,9 +14,17 @@ class DashboardIngestion:
     def dash_board_top(self):
         self.detail_report = pd.read_excel(self.data, sheet_name='DetailReport')
         self.summary_report = pd.read_excel(self.data, sheet_name='SummaryReport')
+        self.customer = pd.read_excel(self.data, sheet_name='CustomerName')
         with st.container():  # Container Header
             st.title(":bar_chart: Ingestion Report")
             st.markdown("###")
+        with st.container():
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown('### Customer: **' + self.customer['Customer Name'][0] + '**')
+            with col2:
+                st.markdown('### Environment: **' + self.customer['Environment'][0] + '**')
+
         with st.container():  # Container Ingestion interval
             col1, col2 = st.columns(2)
             with col1:
@@ -84,7 +73,7 @@ class DashboardIngestion:
                 total_time_ingestion = max(self.df_selection['COMPUTATION FINISHED']) - \
                                        min(self.df_selection['INGESTION SERVICE MESSAGE STARTED'])
 
-                total_time_ingestion = format_time(total_time_ingestion)
+                total_time_ingestion = format_time_dashboard(total_time_ingestion)
 
                 total_of_messages = sum(self.summary_report['TOTAL OF MESSAGE'])
                 total_of_objects = sum(self.summary_report['TOTAL OBJECT COUNT'])
@@ -133,7 +122,7 @@ class DashboardIngestion:
             if len(self.df_selection) > 0:
                 total_ingest_service = max(self.df_selection['INGESTION SERVICE MESSAGE FINISHED']) - min(
                     self.df_selection['INGESTION SERVICE MESSAGE STARTED'])
-                timeDiff_calculation_ingestion_service = format_time(total_ingest_service)
+                timeDiff_calculation_ingestion_service = format_time_dashboard(total_ingest_service)
                 execution_time_total_ingestion_service = round(self.df_selection['INGESTION SERVICE TOTAL TIME'].sum(),
                                                                2)
                 average_total_ingestion_service = round(self.df_selection['INGESTION SERVICE TOTAL TIME'].mean(), 2)
@@ -142,7 +131,7 @@ class DashboardIngestion:
 
                 total_message_broker = max(self.df_selection["MESSAGE BROKER FINISHED"]) - min(
                     self.df_selection["MESSAGE BROKER STARTED"])
-                timeDiff_calculation_message_broker_service = format_time(total_message_broker)
+                timeDiff_calculation_message_broker_service = format_time_dashboard(total_message_broker)
                 execution_time_total_message_broker_service = round(
                     self.df_selection['MESSAGE BROKER TOTAL TIME'].sum(), 2)
                 average_total_message_broker = round(self.df_selection['MESSAGE BROKER TOTAL TIME'].mean(), 2)
@@ -151,7 +140,7 @@ class DashboardIngestion:
 
                 total_lct_adapter = max(self.df_selection['LCT ADAPTER FINISHED']) - min(
                     self.df_selection['LCT ADAPTER STARTED'])
-                timeDiff_calculation_lct_adapter_service = format_time(total_lct_adapter)
+                timeDiff_calculation_lct_adapter_service = format_time_dashboard(total_lct_adapter)
                 execution_time_total_lct_adapter_service = round(self.df_selection['LCT ADAPTER TOTAL TIME'].sum(), 2)
                 average_total_lct_adapter = round(self.df_selection['LCT ADAPTER TOTAL TIME'].mean(), 2)
                 max_time_lct_adapter_service = self.df_selection['LCT ADAPTER TOTAL TIME'].max()
@@ -159,7 +148,7 @@ class DashboardIngestion:
 
                 total_computation = max(self.df_selection['COMPUTATION FINISHED']) - min(
                     self.df_selection['COMPUTATION STARTED'])
-                timeDiff_calculation_time_computation_service = format_time(total_computation)
+                timeDiff_calculation_time_computation_service = format_time_dashboard(total_computation)
                 execution_time_total_computation_service = round(self.df_selection['COMPUTATION TOTAL TIME'].sum(), 2)
                 average_total_computation_service = round(self.df_selection['COMPUTATION TOTAL TIME'].mean(), 2)
                 max_time_lct_computation_service = self.df_selection['COMPUTATION TOTAL TIME'].max()
@@ -167,7 +156,7 @@ class DashboardIngestion:
 
                 total_ingestion_time = max(self.df_selection["COMPUTATION FINISHED"]) - min(
                     self.df_selection["INGESTION SERVICE MESSAGE STARTED"])
-                timeDiff_calculation_total_ingestion = format_time(total_ingestion_time)
+                timeDiff_calculation_total_ingestion = format_time_dashboard(total_ingestion_time)
                 execution_time_total_ingestion = round(execution_time_total_ingestion_service + \
                                                        execution_time_total_message_broker_service + \
                                                        execution_time_total_lct_adapter_service + \

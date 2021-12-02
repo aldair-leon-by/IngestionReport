@@ -2,7 +2,7 @@ from datetime import datetime
 from scripts.init_logger import log
 
 # Logger
-logger = log('ENV SETUP')
+logger = log('TIME CALCULATIONS')
 
 
 def ave_time_execution(e2eIngestionComputation):
@@ -58,7 +58,7 @@ def ave_time_execution(e2eIngestionComputation):
             u = sum([a * b for a, b in zip(ftr, map(float, timeDiff_calculation.split(':')))])
             u = round(u, 2)
             total_time.append(u)
-    e2eIngestionComputation.insert(14, 'TimeDiff', total_time)
+    e2eIngestionComputation.insert(14, 'TOTAL TIME INGESTION', total_time)
     total_time.clear()
     for i in range(len(e2eIngestionComputation)):
         timeDiff = e2eIngestionComputation.iloc[i, 3] - e2eIngestionComputation.iloc[i, 2]
@@ -137,3 +137,19 @@ def ave_time_execution(e2eIngestionComputation):
     e2eIngestionComputation.insert(18, 'COMPUTATION TOTAL TIME', total_time)
     logger.info('CALCULATION TIME FINISHED !')
     return e2eIngestionComputation
+
+
+def format_time_dashboard(time):
+    td = str(time).split(' ')[-1:][0]
+    try:
+        timeDiff2 = datetime.strptime(str(td), '%H:%M:%S.%f').strftime('%H:%M:%S.%f')
+    except ValueError:
+        pass
+    try:
+        timeDiff2 = datetime.strptime(str(td), '%H:%M:%S').strftime('%H:%M:%S.%f')
+    except ValueError:
+        pass
+    ftr = [3600, 60, 1]
+    u = sum([a * b for a, b in zip(ftr, map(float, timeDiff2.split(':')))])
+    u = round(u, 2)
+    return u

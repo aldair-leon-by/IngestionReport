@@ -4,7 +4,7 @@ from scripts.env_config import abs_path_Macro_folder, abs_excel_macros
 from scripts.init_logger import log
 
 # Logger
-logger = log('ENV SETUP')
+logger = log('EXCEL MACROS')
 
 
 def excel_Report_format(path_report_name):
