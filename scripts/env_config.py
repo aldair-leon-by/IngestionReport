@@ -1,10 +1,11 @@
+"""
+Author: Aldair Leon
+Date: Dec 3rd, 2021
+"""
+
 import json
 import os
 from scripts.init_logger import log
-
-"""
-Env configurations and folders path
-"""
 
 # Logger
 logger = log('ENV SETUP')
@@ -20,7 +21,7 @@ def report_folder():
         logger.info('Report folder created ...')
 
 
-# Report folder absolut path
+# Report folder absolute path
 def abs_path_Report_folder() -> str:
     report_folder()
     verify_path = os.path.exists(os.path.abspath("Report"))
@@ -32,7 +33,7 @@ def abs_path_Report_folder() -> str:
     return report_path
 
 
-# Macro folder absolut path
+# Macro folder absolute path
 def abs_path_Macro_folder() -> str:
     verify_path = os.path.exists(os.path.abspath("ExcelMacros/macros_format.xlsm"))
     if verify_path:
@@ -43,7 +44,7 @@ def abs_path_Macro_folder() -> str:
     return macro_path
 
 
-# Resources folder absolut path
+# Resources folder absolute path
 def abs_path_resources() -> str:
     verify_path = os.path.exists(os.path.abspath("resources"))
     if verify_path:

@@ -1,3 +1,8 @@
+"""
+Author: Aldair Leon
+Date: Dec 3rd, 2021
+"""
+
 import os
 import win32com.client
 from scripts.env_config import abs_path_Macro_folder, abs_excel_macros
@@ -6,6 +11,8 @@ from scripts.init_logger import log
 # Logger
 logger = log('EXCEL MACROS')
 
+
+# This code run macros into our Excel report
 
 def excel_Report_format(path_report_name):
     macros = abs_excel_macros()
@@ -32,4 +39,3 @@ def excel_Report_format(path_report_name):
         xl.Application.Quit()
         logger.info('Excel format file Finish..')
         del xl
-

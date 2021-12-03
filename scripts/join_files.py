@@ -1,3 +1,7 @@
+"""
+Author: Aldair Leon
+Date: Dec 3rd, 2021
+"""
 import json
 from scripts.sql_query import sql_query_message_Detail, sql_query_adapter_Detail
 from scripts.init_logger import log
@@ -11,13 +15,15 @@ logger = log('JOIN REPORTS')
 
 class JoinFail:
 
-    def __init__(self, start_time, finish_time, env,customer):
+    # Constructor
+    def __init__(self, start_time, finish_time, env, customer):
         self.start_time = start_time
         self.finish_time = finish_time
         self.env = env
         self.customer = customer
 
-    def DetailReport(self):
+    # Query and join data and return pandas data frame (Detail Report)
+    def DetailReport(self) -> pd.DataFrame:
         message_store = sql_query_message_Detail(self.start_time, self.finish_time, self.env, self.customer)
         lct_adapter = sql_query_adapter_Detail(self.start_time, self.finish_time, self.env, self.customer)
         computation = mysql_query_computation_time(self.env, self.customer)
@@ -39,7 +45,8 @@ class JoinFail:
         logger.info('DETAIL REPORT CREATED!')
         return self.e2eIngestionComputation
 
-    def SummaryReport(self):
+    # Query and group by, using Detail Report data frame (self.e2eIngestionComputation)
+    def SummaryReport(self) -> pd.DataFrame:
         self.e2eIngestionComputation = self.e2eIngestionComputation.astype({"totalSourcingObjectCount": int})
         self.e2eIngestionComputationSummary = self.e2eIngestionComputation.groupby(
             ['TYPE_OF_MESSAGE', 'MSG_STATUS', 'COMPUTATION_STATUS']) \
@@ -57,7 +64,10 @@ class JoinFail:
         logger.info('JOIN SUMMARY INGESTION TO COMPUTATION !!')
         return self.e2eIngestionComputationSummary
 
-    def DetailReportPerformanceMetrics(self):
+    # Using performs metrics (json format) from stack_db, convert this data into excel file
+    # Return tuple with DataFrame
+    # Pending add the rest of services, now only works with Order, Transport, Computation Frontend and Backend service.
+    def DetailReportPerformanceMetrics(self) -> tuple:
         with open('resources/performance_header.json') as f:
             performance2 = json.load(f)
         orderMetrics = self.e2eIngestionComputation[
@@ -68,7 +78,8 @@ class JoinFail:
         transportMetrics = transportMetrics[list(performance2['transport'][0].values())]
         return orderMetrics, transportMetrics
 
-    def customer_name(self):
+    # Return data frame with customer name and environment
+    def customer_name(self) -> pd.DataFrame:
         customer_name = {'Customer Name': [self.customer],
                          'Environment': [self.env]}
         df_customer_name = pd.DataFrame(customer_name)

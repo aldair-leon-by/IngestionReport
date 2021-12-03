@@ -1,3 +1,8 @@
+"""
+Author: Aldair Leon
+Date: Dec 3rd, 2021
+"""
+
 import numpy as np
 import pandas as pd
 import plotly.express as px

@@ -1,14 +1,15 @@
+"""
+Author: Aldair Leon
+Date: Dec 3rd, 2021
+"""
+
 import datetime
 import pandas as pd
 import streamlit as st
 from scripts.report_creation import IngestionReport
 
-"""
-Author: Aldair Leon
-Date: Oct 26th, 2021
-"""
 
-
+# Run Report configuration (streamlit UI)
 def app():
     st.title('Run Report')
     col1, col2 = st.columns(2)

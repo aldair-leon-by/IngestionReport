@@ -1,9 +1,18 @@
+"""
+Author: Aldair Leon
+Date: Dec 3rd, 2021
+"""
 import os
 from datetime import datetime
 from scripts.env_config import abs_path_Report_folder
+from scripts.init_logger import log
+
+# Logger
+logger = log('FILE NAME')
 
 
-def folder_name_date(report):
+# Return folder name with the interval of Data in the report (Ingestion start to Ingestion finish)
+def folder_name_date(report) -> tuple:
     format_time_start = report['INGESTION_SERVICE_MESSAGE_STARTED'][0]
     format_time_finish = report['INGESTION_SERVICE_MESSAGE_STARTED'].iloc[-1]
     directory_FileName_start = format_time_start.to_pydatetime()
@@ -15,7 +24,8 @@ def folder_name_date(report):
     return folder_name_start, folder_name_finish
 
 
-def file_name_date(report):
+# Return file name with the interval of Time in the report (Ingestion start to Ingestion finish)
+def file_name_date(report) -> tuple:
     format_time_start = report['INGESTION_SERVICE_MESSAGE_STARTED'][0]
     format_time_finish = report['INGESTION_SERVICE_MESSAGE_STARTED'].iloc[-1]
     directory_FileName_start = format_time_start.to_pydatetime()
@@ -27,7 +37,8 @@ def file_name_date(report):
     return file_name_start, file_name_finish
 
 
-def folder_IngestionReport(report):
+# Create folder and return path of this folder
+def folder_IngestionReport(report) -> str:
     folder = folder_name_date(report)
     report_folder = abs_path_Report_folder()
     folder_name_details = 'From- ' + folder[0] + ' To- ' + folder[1]
@@ -35,12 +46,15 @@ def folder_IngestionReport(report):
     path_detail = os.path.join(path, 'IngestionReport')
     if not os.path.exists(path):
         os.mkdir(path, 0o666)
+        logger.info('Successfully creation of folder')
     if not os.path.exists(path_detail):
         os.mkdir(path_detail, 0o666)
+        logger.info('Successfully creation of folder')
     return path_detail
 
 
-def file_IngestionReport(report):
+# Create and return excel file name
+def file_IngestionReport(report) -> str:
     file = file_name_date(report)
     exel_file_name_details = 'IngestionReport From- ' + file[0] + ' To- ' + \
                              file[1] + '.xlsx'

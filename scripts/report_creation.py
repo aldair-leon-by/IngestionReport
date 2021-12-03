@@ -1,3 +1,8 @@
+"""
+Author: Aldair Leon
+Date: Dec 3rd, 2021
+"""
+
 import pandas as pd
 from scripts.folder_file_name import folder_IngestionReport, file_IngestionReport
 from scripts.join_files import JoinFail
@@ -9,17 +14,20 @@ logger = log('Ingestion Report')
 
 
 class IngestionReport:
+    # Constructor
     def __init__(self, start, finish, env, customer):
         self.start = start
         self.finish = finish
         self.env = env
         self.customer = customer
 
+    # Customer Data Frame
     def customer_name(self):
         customer_name = {'Customer Name': [self.customer]}
         self.df_customer_name = pd.DataFrame(customer_name)
 
-    def ingestion_report(self):
+    # Run Ingestion Report and store in your local PC, return path where you file is located
+    def ingestion_report(self) -> str:
         ingestion_Report = JoinFail(self.start, self.finish, self.env, self.customer)  # JoinFail object creation
         e2eIngestionReportDetails = ingestion_Report.DetailReport()  # Created Detail Report
         e2eIngestionReportSummary = ingestion_Report.SummaryReport()  # Created Summary Report

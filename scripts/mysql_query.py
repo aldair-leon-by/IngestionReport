@@ -1,3 +1,8 @@
+"""
+Author: Aldair Leon
+Date: Dec 3rd, 2021
+"""
+
 import json
 from errno import errorcode
 import mysql
@@ -10,7 +15,8 @@ from scripts.env_config import abs_path_resources
 logger = log('ENV SETUP')
 
 
-def get_ingestion_id():
+# Read json file with ingestion_id that we extract from Connect
+def get_ingestion_id() -> list:
     ingestion_id_list = []
     path = abs_path_resources()
     ingestion_id = open(path + '//ingestion_id.json')
@@ -20,11 +26,12 @@ def get_ingestion_id():
     return ingestion_id_list
 
 
-# Computation time start to finish in every ingestion_id
-def mysql_query_computation_time(env,customer):
-    cnx = mysql_connection(env,customer)
+# Query LCT DB and joind data in one Data frame
+def mysql_query_computation_time(env, customer) -> pd.DataFrame:
+    cnx = mysql_connection(env, customer)
     ingestion_id = get_ingestion_id()
     format_strings = ",".join(['%s'] * len(ingestion_id))
+    # Run query when computation service start Status Accepting
     query_start = "SELECT ingestion_id as INGESTION_ID, min(event_time) AS COMPUTATION_STARTED " \
                   "FROM stack_db.event WHERE ingestion_id IN (%s) " \
                   "AND status IN ('ACCEPTING') " \
@@ -41,7 +48,7 @@ def mysql_query_computation_time(env,customer):
             print("Database does not exist")
         else:
             print(err)
-
+    # Run query when computation service finish Status COMPLETED or COMPLETED_WITH_TIMEOUT
     query_finish = "SELECT ingestion_id as INGESTION_ID, max(event_time) AS COMPUTATION_FINISHED " \
                    "FROM stack_db.event WHERE ingestion_id IN (%s) " \
                    "AND status IN ('COMPLETED','COMPLETED_WITH_TIMEOUT') " \
@@ -59,7 +66,7 @@ def mysql_query_computation_time(env,customer):
             print("Database does not exist")
         else:
             print(err)
-
+    # Run query, performance metrics
     query = "SELECT max(event_time) AS COMPUTATION_FINISHED, ingestion_id as INGESTION_ID, status AS COMPUTATION_STATUS, " \
             "json_extract(performance_metrics,'$.summary.overall.totalCpuTimeMs') AS totalCpuTimeMs, " \
             "json_extract(performance_metrics,'$.summary.overall.averageCpuTimeMs') AS averageCpuTimeMs, " \
