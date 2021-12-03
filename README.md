@@ -34,6 +34,10 @@ Select your location where you want to store this tool, then run this command.
 
 `git clone https://github.com/aldair-leon-by/IngestionReport.git`
 
+Then install requirements
+
+`pip install -r requirements.txt`
+
 #### Step #2
 After you clone the repo, some folder and files will download, and you wil get something simillar as this: 
 ```
@@ -65,6 +69,7 @@ IngestionReport/
     ├── .gitignore
     ├── README.md
     ├── app.py
+    ├── requirements.txt
     └── multiapp.py
 ```
 
