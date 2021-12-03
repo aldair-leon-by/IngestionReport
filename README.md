@@ -12,11 +12,10 @@
 - [Quick start](#quick-start)
 - [Installation](#installation)
 - [Run](#run)
-- [Bugs and feature requests](#bugs-and-feature-requests)
-- [Contributing](#contributing)
-- [Creators](#creators)
-- [Thanks](#thanks)
-- [Copyright and license](#copyright-and-license)
+- [Run Report](#run-report)
+- [View Report](#view-report)
+- [Architecture](#architecture)
+
 
 
 ## Quick start
@@ -32,7 +31,7 @@ Requierments
 #### Step #1:
 <br>
 Select your location where you want to store this tool, then run this command.
-<br>
+
 `git clone https://github.com/aldair-leon-by/IngestionReport.git`
 
 #### Step #2
@@ -139,47 +138,46 @@ In case that you need to add a new customer you have to edit customers.json
 After this, add this new customer DataBase credentials in data_base_credentials.json.
 
 ## Run
+Open a command prompt located in **C:\your-path\IngestionReport** folder, then run following command:
 
-Some text
+`streamlit run .\app.py`
 
-```text
-folder1/
-└── folder2/
-    ├── folder3/
-    │   ├── file1
-    │   └── file2
-    └── folder4/
-        ├── file3
-        └── file4
-```
+Then a window will diplay. 
 
-## Bugs and feature requests
+![image](https://user-images.githubusercontent.com/65984000/144652308-683a9702-4990-4f08-a1ea-7dc2d522e869.png)
 
-Have a bug or a feature request? Please first read the [issue guidelines](https://reponame/blob/master/CONTRIBUTING.md) and search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://reponame/issues/new).
 
-## Contributing
+## Run Report
 
-Please read through our [contributing guidelines](https://reponame/blob/master/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
+Please, fill the following information to run yout report. After you finish, click in the Run button. Then an Excel file will be created and store in your local. 
 
-Moreover, all HTML and CSS should conform to the [Code Guide](https://github.com/mdo/code-guide), maintained by [Main author](https://github.com/usernamemainauthor).
 
-Editor preferences are available in the [editor config](https://reponame/blob/master/.editorconfig) for easy use in common text editors. Read more and download plugins at <https://editorconfig.org/>.
+![image](https://user-images.githubusercontent.com/65984000/144652921-1a1bf9ba-7eab-4705-9697-ac5ae18d57b8.png)
+![image](https://user-images.githubusercontent.com/65984000/144652969-7e76ea82-475b-4ddb-9170-9e79603b00f3.png)
 
-## Creators
+After you run your report, you will see a message like this:
+![image](https://user-images.githubusercontent.com/65984000/144653621-27959353-bd6e-4278-b28e-613270cf066f.png)
 
-**Creator 1**
+**NOTE: IF YOU GET THIS ERROR, IS BECAUSE IN THAT INTERVAL OF TIME THE SISTEM DIDNT MAKE ANY INGESTION PLEASE SELECT OTHER INTERVAL OF TIME**
 
-- <https://github.com/usernamecreator1>
+**I will fix this and add a better exception**
+![image](https://user-images.githubusercontent.com/65984000/144654035-6c1d23b2-4db9-48df-a4c7-d948441f43c9.png)
 
-## Thanks
 
-Some Text
 
-## Copyright and license
 
-Code and documentation copyright 2011-2018 the authors. Code released under the [MIT License](https://reponame/blob/master/LICENSE).
+## View Report
+Please select you excel file, that we created before
 
-Enjoy :metal:
+![image](https://user-images.githubusercontent.com/65984000/144654549-61db13a0-45ad-455b-99f0-e4f243eaf31d.png)
+
+After you select your file, data will display in a dashboard:
+![image](https://user-images.githubusercontent.com/65984000/144654692-b2e829a8-0943-49c2-8d08-29fb3cf979a7.png)
+
+
+
+## Architecture
+
 
 
 
