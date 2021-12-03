@@ -10,8 +10,8 @@
 ## Table of contents
 
 - [Quick start](#quick-start)
-- [Status](#status)
-- [What's included](#whats-included)
+- [Installation](#installation)
+- [Run](#run)
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Contributing](#contributing)
 - [Creators](#creators)
@@ -21,17 +21,124 @@
 
 ## Quick start
 
-Some text
+Requierments
 
-- Instruction 1
-- Instruction 2
-- Instruction 3
+- [Python](https://www.python.org/downloads/)
+- [IDE](https://www.jetbrains.com/pycharm/download/#section=windows)
+- [Clone repo](https://github.com/aldair-leon-by/IngestionReport)
 
-## Status
+## Installation
 
-Here goes all the budgets
+#### Step #1:
+<br>
+Select your location where you want to store this tool, then run this command.
+<br>
+`git clone https://github.com/aldair-leon-by/IngestionReport.git`
 
-## What's included
+#### Step #2
+After you clone the repo, some folder and files will download, and you wil get something simillar as this: 
+```
+IngestionReport/
+└── .streamlit/
+    │   ├── config.toml
+    ├── ExcelMacros/
+    │   ├── macros_format.xlsm
+    ├── resources/
+    │    ├── customers.json
+    │    ├── data_base_credentials.json
+    │    ├── ingestion_id.json
+    │    ├── macro.json
+    │    └── performance_header.json
+    ├── scripts/
+    |   ├── __init__.py
+    |   ├── db_connection.py
+    |   ├── env_config.py
+    |   ├── excel_format.py
+    |   ├── folder_file_name.py
+    |   ├── init_logger.py
+    |   ├── join_files.py
+    |   ├── mysql_query.py
+    |   ├── report_creation.py
+    |   ├── run_report.py
+    |   ├── sql_query.py
+    |   ├── time_calculation.py
+    │   └── view_report.py
+    ├── .gitignore
+    ├── README.md
+    ├── app.py
+    └── multiapp.py
+```
+
+#### Step #3
+
+If you want to change, data base credentials of some config you have to edit, data_base_credentials.json.
+```
+  "SW": {
+    "sql_db_sit": [
+      {
+        "sql_server": "****",
+        "sql_username": "****",
+        "sql_password": "****",
+        "sql_database": "****"
+      }
+    ],
+    "sql_db_uat": [
+      {
+        "sql_server": "****",
+        "sql_username": "****",
+        "sql_password": "****",
+        "sql_database_adapter": "****",
+        "sql_database_message_store": "****"
+      }
+    ],
+    "sql_db_prod": [
+      {
+        "sql_server": "****",
+        "sql_username": "****",
+        "sql_password": "****",
+        "sql_database_adapter": "****",
+        "sql_database_message_store": "****"
+      }
+    ],
+    "mysql_db_uat": [
+      {
+        "mysql_server": "****",
+        "mysql_username": "****",
+        "mysql_password": "****",
+        "mysql_database": "****"
+      }
+    ],
+    "mysql_db_prod": [
+      {
+        "mysql_server": "****",
+        "mysql_username": "****",
+        "mysql_password": "****",
+        "mysql_database": "****"
+      }
+    ]
+  }
+```
+
+In case that you need to add a new customer you have to edit customers.json 
+```
+{
+  "customer": {
+    "0": "Select customer",
+    "1": "SW",
+    "2": "Loblaw",
+    "3": "GSK"
+  },
+    "env": {
+    "0": "Select env",
+    "1": "sit",
+    "2": "uat",
+    "3": "prod"
+  }
+}
+```
+After this, add this new customer DataBase credentials in data_base_credentials.json.
+
+## Run
 
 Some text
 
