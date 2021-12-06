@@ -25,6 +25,12 @@ Requierments
 - [Python](https://www.python.org/downloads/)
 - [IDE](https://www.jetbrains.com/pycharm/download/#section=windows)
 - [Clone repo](https://github.com/aldair-leon-by/IngestionReport)
+- [Build Tools for Visual Studio 2022](https://visualstudio.microsoft.com/downloads/)
+   <br>Please install build Tools from this link.
+   ![image](https://user-images.githubusercontent.com/65984000/144876178-6019e627-6b7e-4d32-8dd2-cbade623aeb4.png)
+   ![image](https://user-images.githubusercontent.com/65984000/144876292-413ea412-88c1-499f-afad-ad29cd8148c7.png)
+   ![image](https://user-images.githubusercontent.com/65984000/144874734-e5dfd64c-807c-4f27-bd25-8f44e736fca9.png)
+   
 
 ## Installation
 
